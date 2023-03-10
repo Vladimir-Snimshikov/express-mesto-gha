@@ -5,6 +5,10 @@ const routes = require('./routes');
 
 const { PORT = 3000 } = process.env;
 
+const {
+  ERROR_NOT_FOUND,
+} = require('./utils/constans');
+
 mongoose.connect('mongodb://0.0.0.0:27017/mestodb');
 
 const app = express();
@@ -18,7 +22,8 @@ app.use((req, res, next) => {
 });
 app.use(routes);
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`App listening on port ${PORT}`);
+app.use('*', (req, res) => {
+  res.status(ERROR_NOT_FOUND).send({ message: 'Запрашиваемая страница не найдена' });
 });
+
+app.listen(PORT);
