@@ -38,7 +38,11 @@ module.exports.deleteCard = (req, res) => {
         res.status(ERROR_NOT_FOUND).send({ message: 'Карточки с данным _id не сущeствует' });
       }
     })
-    .catch(() => defaultError(res));
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(ERROR_CODE).send({ message: 'Переданы некорректные данные карточки' });
+      } else defaultError(res);
+    });
 };
 
 module.exports.likeCard = (req, res) => Card.findByIdAndUpdate(
