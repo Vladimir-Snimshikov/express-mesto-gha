@@ -49,7 +49,7 @@ module.exports.likeCard = (req, res) => Card.findByIdAndUpdate(
   .then((card) => {
     if (!card) {
       return res.status(ERROR_NOT_FOUND).send({ message: 'Карточки с данным _id не сущeствует' });
-    } return res.status(SUCCESS).send({ data: card });
+    } return res.send({ data: card });
   })
   .catch((err) => {
     if (err.name === 'CastError') {
@@ -66,7 +66,7 @@ module.exports.dislikeCard = (req, res) => {
   )
     .then((card) => {
       if (card) {
-        res.status(SUCCESS).send({ data: card });
+        res.send({ data: card });
       } else {
         res.status(ERROR_NOT_FOUND).send({ message: 'Карточка с данным _id не существует' });
       }

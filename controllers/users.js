@@ -19,7 +19,11 @@ module.exports.getUserById = (req, res) => {
       if (user) res.status(SUCCESS).send({ data: user });
       else res.status(ERROR_NOT_FOUND).send({ message: 'Пользователь по указанному _id не найден' });
     })
-    .catch(() => defaultError(res));
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(ERROR_CODE).send({ message: 'Некорректный _id пользователя' });
+      } else defaultError(res);
+    });
 };
 
 module.exports.createUser = (req, res) => {
