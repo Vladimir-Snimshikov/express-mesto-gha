@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, SERVER = 'mongodb://0.0.0.0:27017/mestodb' } = process.env;
 
 const {
   ERROR_NOT_FOUND,
 } = require('./utils/constans');
 
-mongoose.connect('mongodb://0.0.0.0:27017/mestodb');
+mongoose.connect(SERVER);
 
 const app = express();
 app.use(bodyParser.json());

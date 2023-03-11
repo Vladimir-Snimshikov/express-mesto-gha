@@ -5,7 +5,7 @@ const SUCCESS = 200;
 
 const defaultError = (res) => {
   res.status(ERROR_SERVER).send({
-    message: 'Ошибка сервера',
+    message: 'На сервере произошла ошибка',
   });
 };
 
